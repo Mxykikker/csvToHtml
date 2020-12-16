@@ -38,28 +38,14 @@ bool getvector(ifstream &fin, vector<string> &v){
 	return x;
 }
 
-void fCopy(const string &srcFName, const string &dstFName){
-	ifstream src(srcFName, ios::binary);
-	ofstream dst(dstFName, ios::binary);
-	dst << src.rdbuf();
-}
-
 int main(int argc, char** argv){
 	vector<string> curLine(argv + 1, argv + argc);
 	string csvTableFName, scriptFName, outFName;
 
 	for(auto i = curLine.begin(); i != curLine.end(); ++i){
 		if(*i == "-h" || *i == "--help"){
-			cout << "Syntax: -f <inputTable.csv> -s <script.htm> -o <output.htm>\n";
+			cout << "Syntax: -f <inputTable.csv> -o <output.htm>\n";
 			return 0;
-		}
-		else if(*i == "-f"){
-			csvTableFName = *++i;
-			ifstream fileTest(csvTableFName);
-			if(fileTest.fail()){
-				cout << "File: " << csvTableFName << " has set failbit andor badbit flags\n";
-				return 1;
-			} 
 		}
 		else if(*i == "s"){
 			scriptFName = *++i;
@@ -73,8 +59,6 @@ int main(int argc, char** argv){
 			outFName = *++i;
 		}
 	}
-
-	fCopy(scriptFName, outFName);
 
 	ifstream csvF(csvTableFName);
 	ofstream outF(outFName, ofstream::app);
