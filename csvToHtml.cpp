@@ -35,8 +35,6 @@ bool getvector(ifstream &fin, vector<string> &v){
 		line.erase(remove(line.begin(), line.end(), '\r'), line.end());
 		v = split(line, ',');
 	}
-	cout << line << endl;
-	cout << x << endl;
 	return x;
 }
 
