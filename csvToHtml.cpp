@@ -40,18 +40,18 @@ bool getvector(ifstream &fin, vector<string> &v){
 
 int main(int argc, char** argv){
 	vector<string> curLine(argv + 1, argv + argc);
-	string csvTableFName, scriptFName, outFName;
+	string csvTableFName, outFName;
 
 	for(auto i = curLine.begin(); i != curLine.end(); ++i){
 		if(*i == "-h" || *i == "--help"){
 			cout << "Syntax: -f <inputTable.csv> -o <output.htm>\n";
 			return 0;
 		}
-		else if(*i == "s"){
-			scriptFName = *++i;
-			ifstream fileTest(scriptFName);
+		else if(*i == "f"){
+			csvTableFName = *++i;
+			ifstream fileTest(csvTableFName);
 			if(fileTest.fail()){
-				cout << "File: " << scriptFName << " has set failbit andor badbit flags\n";
+				cout << "File: " << csvTableFName << " has set failbit andor badbit flags\n";
 				return 1;
 			} 
 		}
@@ -62,7 +62,6 @@ int main(int argc, char** argv){
 
 	ifstream csvF(csvTableFName);
 	ofstream outF(outFName, ofstream::app);
-
 
 	outF << "<table id=\"MyTable\" class=\"table table-bordered table-hover table-condensed\">\n"
 		 << "\t<thead>\n"
